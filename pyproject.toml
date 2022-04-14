@@ -1,0 +1,84 @@
+[tool.poetry]
+name = "flask-vite"
+version = "0.1.0"
+homepage = "https://github.com/abilian/flask-vite"
+description = "Flask+Vite integration."
+authors = ["Abilian SAS <contact@abilian.com>"]
+readme = "README.rst"
+classifiers=[
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+]
+packages = [
+    { include = "flask_vite", from = "src" },
+    { include = "tests", format = "sdist" },
+]
+
+
+[tool.poetry.plugins."flask.commands"]
+vite = "flask_vite.cli:vite"
+
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4"
+
+Flask = "^2"
+
+
+[tool.poetry.dev-dependencies]
+## Standard cruft
+
+# Cruft (project templates management)
+cruft = "*"
+toml = "*"
+
+# Debug
+devtools = "^0.8.0"
+
+# Testing
+pytest = "*"
+pytest-cov = "*"
+coveralls = "*"
+
+# Linting
+flake8 = "*"
+flake8-bugbear = "*"
+flake8-comprehensions = "*"
+flake8-mutable = "*"
+flake8-pytest = "*"
+flake8-super-call = "*"
+flake8-tidy-imports = "*"
+mastool = "*"
+mccabe = "*"
+mypy = "*"
+pyanalyze = "^0.5"
+
+# Formatting
+isort = "*"
+black = "*"
+
+# Other tools
+profilehooks = "*"
+pre-commit = "*"
+safety = "*"
+
+# Needed for some reason
+pyyaml = "*"
+
+# Doc
+restructuredtext_lint = "*"
+
+## /standard cruft
+
+
+[tool.isort]
+profile = "black"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

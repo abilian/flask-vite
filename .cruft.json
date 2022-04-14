@@ -1,0 +1,21 @@
+{
+  "template": "https://github.com/abilian/cookiecutter-abilian-python",
+  "commit": "73d60b38f68f33f30dfea71949c07cf91093efc7",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "full_name": "Abilian SAS",
+      "email": "sf@abilian.com",
+      "github_username": "sfermigier",
+      "project_name": "Flask-Tailwind",
+      "project_slug": "flask_tailwind",
+      "project_short_description": "Flas+Tailwind",
+      "pypi_username": "sfermigier",
+      "version": "0.1.0",
+      "add_pyup_badge": "n",
+      "open_source_license": "MIT license",
+      "_template": "https://github.com/abilian/cookiecutter-abilian-python"
+    }
+  },
+  "directory": null
+}

@@ -6,7 +6,7 @@ from typing import Union
 
 from flask import Flask, Response, send_from_directory
 
-from .tags import make_vite_css_tag
+from .tags import make_vite_header_tag
 
 
 class Vite(object):
@@ -25,7 +25,7 @@ class Vite(object):
 
         app.after_request(self.after_request)
         app.route("/_vite/<path:filename>")(self.vite_static)
-        app.template_global("vite_css")(make_vite_css_tag)
+        app.template_global("vite_header_tags")(make_vite_header_tag)
 
     def after_request(self, response: Response):
         if not response.mimetype.startswith("text/html"):
@@ -38,7 +38,7 @@ class Vite(object):
             return response
 
         body = b"".join(response.response).decode()
-        tag = make_vite_css_tag()
+        tag = make_vite_header_tag()
         body = body.replace("</head>", f"{tag}\n</head>")
         response.response = [body.encode("utf8")]
         response.content_length = len(response.response[0])

@@ -23,14 +23,14 @@ command = vite.command
 @with_appcontext
 def init():
     """Init the vite/ directory (if it doesn't exist)"""
-    source_dir = Path(__file__).parent / "cruft"
+    source_dir = Path(__file__).parent / "starter"
     dest_dir = Path("vite")
     if dest_dir.exists():
         click.secho(f"Target directory '{dest_dir}' exists, aborting.", fg="red")
         sys.exit(1)
 
     shutil.copytree(source_dir, dest_dir)
-    click.secho(f"Vite source and cruft installed in '{dest_dir}'.", fg="green")
+    click.secho(f"Vite source directory and starter content installed in '{dest_dir}'.", fg="green")
 
 
 @command()

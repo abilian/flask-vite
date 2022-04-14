@@ -45,5 +45,5 @@ class Vite(object):
         return response
 
     def vite_static(self, filename):
-        dist = str(Path(os.getcwd()) / "vite" / "dist")
+        dist = str(Path(os.getcwd()) / "vite" / "dist" / "assets")
         return send_from_directory(dist, filename)

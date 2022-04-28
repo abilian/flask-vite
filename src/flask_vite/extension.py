@@ -8,6 +8,8 @@ from flask import Flask, Response, send_from_directory
 
 from .tags import make_vite_header_tag
 
+ONE_YEAR = 60 * 60 * 24 * 365
+
 
 class Vite(object):
     def __init__(self, app: Union[Flask, None] = None):
@@ -46,4 +48,4 @@ class Vite(object):
 
     def vite_static(self, filename):
         dist = str(Path(os.getcwd()) / "vite" / "dist" / "assets")
-        return send_from_directory(dist, filename)
+        return send_from_directory(dist, filename, max_age=ONE_YEAR)

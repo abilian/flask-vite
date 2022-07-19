@@ -24,16 +24,17 @@ vite = "flask_vite.cli:vite"
 
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4"
+python = "^3.8"
 
 Flask = "^2"
+rich = "^12.5.1"
 
 
 [tool.poetry.dev-dependencies]
 ## Standard cruft
 
 # Cruft (project templates management)
-cruft = "*"
+# cruft = "*"
 toml = "*"
 
 # Debug

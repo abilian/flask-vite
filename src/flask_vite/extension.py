@@ -30,10 +30,11 @@ class Vite(object):
         app.template_global("vite_header_tags")(make_vite_header_tag)
 
     def after_request(self, response: Response):
-        if not response.mimetype.startswith("text/html"):
+        if response.status_code != 200:
             return response
 
-        if response.status_code != 200:
+        mimetype = response.mimetype or ""
+        if not mimetype.startswith("text/html"):
             return response
 
         if not isinstance(response.response, list):

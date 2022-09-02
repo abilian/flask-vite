@@ -75,21 +75,13 @@ lint: lint-py lint-js lint-rst lint-doc
 
 lint-ci: lint
 
-lint-all: lint lint-mypy lint-bandit
+lint-all: lint lint-bandit
 
 lint-py:
 	@echo "--> Linting Python files /w flake8"
 	flake8 src tests
-	@echo ""
-
-lint-mypy:
-	@echo "--> Typechecking Python files w/ mypy"
+	python -m pyanalyze --config-file pyproject.toml src
 	mypy src tests
-	@echo ""
-
-lint-travis:
-	@echo "--> Linting .travis.yml files"
-	travis lint --no-interactive
 	@echo ""
 
 lint-rst:

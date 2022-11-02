@@ -4,7 +4,7 @@ version = "0.1.5"
 homepage = "https://github.com/abilian/flask-vite"
 description = "Flask+Vite integration."
 authors = ["Abilian SAS <contact@abilian.com>"]
-readme = "README.rst"
+readme = "README.md"
 classifiers=[
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',

@@ -5,6 +5,7 @@ __pycache__/
 
 # Distribution / packaging
 poetry.lock
+requirements.txt
 
 .Python
 env/
@@ -79,3 +80,4 @@ docs/_build/
 # IDE settings
 .vscode/
 .idea/
+

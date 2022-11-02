@@ -51,7 +51,7 @@ flake8-super-call = "*"
 flake8-tidy-imports = "*"
 mccabe = "*"
 mypy = "*"
-pyanalyze = "^0.5"
+pyanalyze = "^0.7"
 
 # Formatting
 isort = "*"

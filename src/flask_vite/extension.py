@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from typing import Union
+from typing import Optional
 
 from flask import Flask, Response, send_from_directory
 
@@ -11,8 +11,8 @@ from .tags import make_vite_header_tag
 ONE_YEAR = 60 * 60 * 24 * 365
 
 
-class Vite(object):
-    def __init__(self, app: Union[Flask, None] = None):
+class Vite:
+    def __init__(self, app: Optional[Flask] = None):
         self.app = app
 
         if app is not None:

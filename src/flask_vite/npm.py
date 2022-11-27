@@ -5,16 +5,17 @@ from textwrap import dedent
 NPM_BIN_PATH = "npm"
 
 
-class NPMException(Exception):
+class NPMError(Exception):
     pass
 
 
 class NPM:
     cwd: str
-    npm_bin_path: str
+    npm_bin_path: str = NPM_BIN_PATH
 
     def __init__(self, cwd="", npm_bin_path=None):
-        self.npm_bin_path = npm_bin_path if npm_bin_path else NPM_BIN_PATH
+        if npm_bin_path:
+            self.npm_bin_path = npm_bin_path
         self.cwd = cwd
 
     def run(self, *args):
@@ -26,4 +27,4 @@ class NPM:
             Visit https://nodejs.org to download and install node.js for your system.
             """
 
-            raise NPMException(dedent(msg))
+            raise NPMError(dedent(msg))

@@ -32,7 +32,7 @@ rich = "^12.5.1"
 
 [tool.poetry.dev-dependencies]
 abilian-devtools = "*"
-devtools = "^0.9.0"
+devtools = "^0.10.0"
 pyanalyze = "*"
 
 

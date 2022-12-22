@@ -1,11 +1,11 @@
-.PHONY: all develop test lint clean doc format
+.PHONY: all develop ruff test lint clean doc format
 .PHONY: clean clean-build clean-pyc clean-test coverage dist docs install lint lint/flake8
 
 # The package name
 PKG=flask_tailwind
 
 
-all: test lint
+all: ruff test lint
 
 #
 # Setup
@@ -29,6 +29,9 @@ configure-git:
 #
 # testing & checking
 #
+ruff:
+	ruff src tests
+
 test-all: test test-readme
 
 test: ## run tests quickly with the default Python
@@ -85,9 +88,9 @@ lint-py:
 	@echo ""
 
 lint-rst:
-	@echo "--> Linting .rst files"
-	-rst-lint *.rst
-	@echo ""
+#	@echo "--> Linting .rst files"
+#	-rst-lint *.rst
+#	@echo ""
 
 lint-doc:
 	@echo "--> Linting doc"

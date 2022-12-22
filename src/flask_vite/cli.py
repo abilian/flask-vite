@@ -32,7 +32,8 @@ def init():
 
     shutil.copytree(source_dir, dest_dir)
     rich.print(
-        f"[green]Vite source directory and starter content installed in '{dest_dir}'.[/green]",
+        f"[green]Vite source directory and starter content installed in "
+        f"'{dest_dir}'.[/green]",
     )
 
 

@@ -6,7 +6,7 @@ from typing import Optional
 
 from flask import Flask, Response, send_from_directory
 
-from .tags import make_vite_header_tag
+from .tags import make_tag
 
 ONE_YEAR = 60 * 60 * 24 * 365
 
@@ -23,11 +23,12 @@ class Vite:
             raise RuntimeError(
                 "This extension is already registered on this Flask app."
             )
+
         app.extensions["vite"] = self
 
         app.after_request(self.after_request)
         app.route("/_vite/<path:filename>")(self.vite_static)
-        app.template_global("vite_header_tags")(make_vite_header_tag)
+        app.template_global("vite_header_tags")(make_tag)
 
     def after_request(self, response: Response):
         if response.status_code != 200:
@@ -41,7 +42,7 @@ class Vite:
             return response
 
         body = b"".join(response.response).decode()
-        tag = make_vite_header_tag()
+        tag = make_tag()
         body = body.replace("</head>", f"{tag}\n</head>")
         response.response = [body.encode("utf8")]
         response.content_length = len(response.response[0])

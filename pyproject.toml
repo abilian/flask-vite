@@ -1,16 +1,15 @@
 [tool.poetry]
 name = "flask-vite"
-version = "0.2.1"
+version = "0.2.2"
 homepage = "https://github.com/abilian/flask-vite"
 description = "Flask+Vite integration."
 authors = ["Abilian SAS <contact@abilian.com>"]
 readme = "README.md"
-classifiers=[
+classifiers = [
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',
     'Natural Language :: English',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
@@ -20,37 +19,29 @@ packages = [
     { include = "tests", format = "sdist" },
 ]
 
-
 [tool.poetry.plugins."flask.commands"]
 vite = "flask_vite.cli:vite"
 
-
 [tool.poetry.dependencies]
 python = "^3.9"
-
-Flask = "^2"
-rich = "^12.5.1"
-
+flask = "^2"
+rich = "^12"
 
 [tool.poetry.dev-dependencies]
 abilian-devtools = "*"
-devtools = "^0.10.0"
+devtools = "^0.10"
 pyanalyze = "*"
-
 
 [tool.isort]
 profile = "black"
-
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-
 [tool.pyanalyze]
 paths = ["src/"]
 import_paths = ["."]
-
 # Additional checks
 bare_ignore = true
 incompatible_override = true
@@ -59,7 +50,6 @@ suggested_parameter_type = true
 unused_ignore = true
 use_fstrings = true
 value_always_true = true
-
 # TODO: fix issues and activate
 # enforce_no_unused = true
 # missing_parameter_annotation = true

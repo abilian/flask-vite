@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 import click
-import rich
+from click import secho
 from flask.cli import with_appcontext
 
 from .npm import NPM
@@ -27,14 +27,11 @@ def init():
     source_dir = Path(__file__).parent / "starter"
     dest_dir = Path("vite")
     if dest_dir.exists():
-        rich.print(f"[red]Target directory '{dest_dir}' exists, aborting.[/red]")
+        secho(f"Target directory '{dest_dir}' exists, aborting.", fg="red")
         sys.exit(1)
 
     shutil.copytree(source_dir, dest_dir)
-    rich.print(
-        f"[green]Vite source directory and starter content installed in "
-        f"'{dest_dir}'.[/green]",
-    )
+    secho(f"Vite source directory and starter content installed in '{dest_dir}'.", fg="green")
 
 
 @command()

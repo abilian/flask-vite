@@ -25,11 +25,10 @@ vite = "flask_vite.cli:vite"
 [tool.poetry.dependencies]
 python = "^3.9"
 flask = "^2"
-rich = "^12"
 
 [tool.poetry.dev-dependencies]
 abilian-devtools = "*"
-devtools = "^0.10"
+devtools = "*"
 pyanalyze = "*"
 
 [tool.isort]

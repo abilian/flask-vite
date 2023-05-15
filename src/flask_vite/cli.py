@@ -31,7 +31,10 @@ def init():
         sys.exit(1)
 
     shutil.copytree(source_dir, dest_dir)
-    secho(f"Vite source directory and starter content installed in '{dest_dir}'.", fg="green")
+    secho(
+        f"Vite source directory and starter content installed in '{dest_dir}'.",
+        fg="green",
+    )
 
 
 @command()

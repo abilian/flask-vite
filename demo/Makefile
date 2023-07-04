@@ -10,6 +10,11 @@ run:
 clean:
 	rm -rf vite/node_modules vite/dist
 
+## Setup
+setup:
+	flask vite init
+	flask vite install
+
 ## Install the vite dependencies
 install:
 	flask vite install

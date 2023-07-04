@@ -26,9 +26,12 @@ class Vite:
 
         app.extensions["vite"] = self
 
-        app.after_request(self.after_request)
+        config = app.config
+        if config.get("VITE_AUTO_INSERT", True):
+            app.after_request(self.after_request)
+
         app.route("/_vite/<path:filename>")(self.vite_static)
-        app.template_global("vite_header_tags")(make_tag)
+        app.template_global("vite_tags")(make_tag)
 
     def after_request(self, response: Response):
         if response.status_code != 200:

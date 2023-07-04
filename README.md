@@ -4,7 +4,7 @@
 
 Plugin to simplify use of Vite from Flask.
 
--   Status: Alpha.
+-   Status: Bêta.
 -   Free software: MIT license
 
 ## Usage
@@ -45,7 +45,12 @@ update         Update Vite and its dependencies, if needed.
 ## Features
 
 - Manages a `vite` directory where you put your front-end source code.
-- Auto-injects vite-generated assets into your HTML pages.
+- Auto-injects vite-generated assets into your HTML pages (if `VITE_AUTO_INSERT` is set in the Flask config).
+- Use `{{ vite_tags() }}` in your Jinja templates otherwise.
+
+## Demo
+
+See the `demo/` directory for a working demo using TailwindCSS.
 
 ## Credits
 

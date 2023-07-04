@@ -31,6 +31,9 @@ abilian-devtools = "*"
 devtools = "*"
 pyanalyze = "*"
 
+[tool.poetry.group.dev.dependencies]
+honcho = "^1.1.0"
+
 [tool.isort]
 profile = "black"
 

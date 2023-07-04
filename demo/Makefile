@@ -9,3 +9,7 @@ run:
 ## Clean up the vite directory
 clean:
 	rm -rf vite/node_modules vite/dist
+
+## Install the vite dependencies
+install:
+	flask vite install

@@ -2,9 +2,6 @@ import subprocess
 from dataclasses import dataclass
 from textwrap import dedent
 
-from flask import current_app
-from devtools import debug
-
 # Assume npm is in the path for now.
 NPM_BIN_PATH = "npm"
 
@@ -21,7 +18,6 @@ class NPM:
     def run(self, *args):
         try:
             _args = [self.npm_bin_path] + list(args)
-            debug(_args)
             subprocess.run(_args, cwd=self.cwd)
         except OSError as e:
             if e.filename == self.npm_bin_path:

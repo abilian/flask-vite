@@ -2,7 +2,7 @@
 History
 =======
 
-0.3.1 (2023-09-19)
+0.3.2 (2023-09-19)
 ------------------
 
 - Make the npm path configurable.

@@ -35,7 +35,7 @@ class Vite:
             app.after_request(self.after_request)
 
         npm_bin_path = config.get("VITE_NPM_BIN_PATH", "npm")
-        self.npm = NPM(cwd=str(Path(app.root_path) / "vite"), npm_bin_path=npm_bin_path)
+        self.npm = NPM(cwd=str(self._get_root()), npm_bin_path=npm_bin_path)
 
         app.route("/_vite/<path:filename>")(self.vite_static)
         app.template_global("vite_tags")(make_tag)
@@ -59,5 +59,8 @@ class Vite:
         return response
 
     def vite_static(self, filename):
-        dist = str(Path(os.getcwd()) / "vite" / "dist" / "assets")
+        dist = str(self._get_root() / "dist" / "assets")
         return send_from_directory(dist, filename, max_age=ONE_YEAR)
+
+    def _get_root(self) -> Path:
+        return Path(os.getcwd()) / "vite"

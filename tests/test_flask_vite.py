@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 
 """Tests for `flask_vite` package."""
+from pathlib import Path
 
 from click.testing import CliRunner
 from flask import Flask
+from pytest import raises
 
 from flask_vite import Vite, cli
+from flask_vite.npm import NPMError
 
 
 def test_extension():
@@ -34,6 +37,12 @@ def test_npm():
     npm = vite.npm
     assert npm.npm_bin_path == "npm"
 
+    Path("vite").mkdir(exist_ok=True)
+
+    with app.app_context():
+        npm.run()
+        npm.run("--help")
+
 
 def test_npm_alt_path():
     app = Flask(__name__)
@@ -41,3 +50,9 @@ def test_npm_alt_path():
     vite = Vite(app)
     npm = vite.npm
     assert npm.npm_bin_path == "xxx"
+
+    Path("vite").mkdir(exist_ok=True)
+
+    with app.app_context():
+        with raises(NPMError):
+            npm.run()

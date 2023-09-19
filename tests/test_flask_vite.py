@@ -26,3 +26,18 @@ def test_cli():
     assert help_result.exit_code == 0
     assert "--help  Show this message and exit." in help_result.output
     assert "init" in help_result.output
+
+
+def test_npm():
+    app = Flask(__name__)
+    vite = Vite(app)
+    npm = vite.npm
+    assert npm.npm_bin_path == "npm"
+
+
+def test_npm_alt_path():
+    app = Flask(__name__)
+    app.config["VITE_NPM_BIN_PATH"] = "xxx"
+    vite = Vite(app)
+    npm = vite.npm
+    assert npm.npm_bin_path == "xxx"

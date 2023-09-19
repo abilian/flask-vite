@@ -6,9 +6,8 @@ from pathlib import Path
 
 import click
 from click import secho
+from flask import current_app
 from flask.cli import with_appcontext
-
-from .npm import NPM
 
 
 @click.group()
@@ -41,45 +40,37 @@ def init():
 @with_appcontext
 def install():
     """Install the dependencies using npm."""
-    npm_run("install")
+    npm = current_app.extensions["vite"].npm
+    npm.run("install")
 
 
 @command()
 @with_appcontext
 def build():
     """Build the Vite assets."""
-    npm_run("run", "build")
+    npm = current_app.extensions["vite"].npm
+    npm.run("run", "build")
 
 
 @command()
 @with_appcontext
 def start():
     """Start watching source changes for dev."""
-    npm_run("run", "dev")
+    npm = current_app.extensions["vite"].npm
+    npm.run("run", "dev")
 
 
 @command()
 @with_appcontext
 def check_updates():
     """Check outdated Vite dependencies."""
-    npm_run("outdated")
+    npm = current_app.extensions["vite"].npm
+    npm.run("outdated")
 
 
 @command()
 @with_appcontext
 def update():
     """Update Vite and its dependencies, if needed."""
-    npm_run("update")
-
-
-# @command()
-# @with_appcontext
-# def npm(*args):
-#     """Call directly npm with given args."""
-#     npm_run(*args)
-
-
-def npm_run(*args):
-    cwd = "vite"
-    npm = NPM(cwd=cwd)
-    npm.run(*args)
+    npm = current_app.extensions["vite"].npm
+    npm.run("update")

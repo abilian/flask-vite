@@ -6,12 +6,16 @@ from typing import Optional
 
 from flask import Flask, Response, send_from_directory
 
+from .npm import NPM
 from .tags import make_tag
 
 ONE_YEAR = 60 * 60 * 24 * 365
 
 
 class Vite:
+    app: Optional[Flask] = None
+    npm: Optional[NPM] = None
+
     def __init__(self, app: Optional[Flask] = None):
         self.app = app
 
@@ -29,6 +33,9 @@ class Vite:
         config = app.config
         if config.get("VITE_AUTO_INSERT", True):
             app.after_request(self.after_request)
+
+        npm_bin_path = config.get("VITE_NPM_BIN_PATH", "npm")
+        self.npm = NPM(cwd=str(Path(app.root_path) / "vite"), npm_bin_path=npm_bin_path)
 
         app.route("/_vite/<path:filename>")(self.vite_static)
         app.template_global("vite_tags")(make_tag)

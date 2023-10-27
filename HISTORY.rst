@@ -1,6 +1,14 @@
 =======
 History
 =======
+ 
+0.3.4 (2023-10-27)
+------------------
+
+- Drop support for Python 3.8
+- Doc (README) improvement by 
+- First contributions by @neeerp and @michaelcho
+
 
 0.3.2 (2023-09-19)
 ------------------

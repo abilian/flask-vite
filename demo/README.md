@@ -6,4 +6,3 @@ To run the demo, assuming you have activated the virtual environment, run:
 make setup
 make run
 ```
-

@@ -29,8 +29,8 @@ flask = ">2"
 [tool.poetry.dev-dependencies]
 abilian-devtools = ">0.5"
 devtools = ">0.12"
-honcho = ">1.1"
-pyanalyze = ">0.11"
+honcho = ">=1.1"
+pyanalyze = ">=0.11"
 pytest = ">7"
 
 [tool.isort]

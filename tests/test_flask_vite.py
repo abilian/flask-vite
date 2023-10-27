@@ -3,9 +3,9 @@
 """Tests for `flask_vite` package."""
 from pathlib import Path
 
+import pytest
 from click.testing import CliRunner
 from flask import Flask
-from pytest import raises
 
 from flask_vite import Vite, cli
 from flask_vite.npm import NPMError
@@ -54,5 +54,5 @@ def test_npm_alt_path():
     Path("vite").mkdir(exist_ok=True)
 
     with app.app_context():
-        with raises(NPMError):
+        with pytest.raises(NPMError):
             npm.run()

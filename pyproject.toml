@@ -26,12 +26,12 @@ vite = "flask_vite.cli:vite"
 python = "^3.9"
 flask = ">2"
 
-[tool.poetry.dev-dependencies]
-abilian-devtools = ">0.5"
-devtools = ">0.12"
-honcho = ">1.1"
-pyanalyze = ">0.11"
-pytest = ">7"
+[tool.poetry.group.dev.dependencies]
+abilian-devtools = "^0.5.13"
+devtools = "^0.12.2"
+honcho = "^1.1.0"
+pyanalyze = "^0.11.0"
+pytest = "^7.4.3"
 
 [tool.isort]
 profile = "black"

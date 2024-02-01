@@ -13,7 +13,6 @@ from flask.cli import with_appcontext
 @click.group()
 def vite():
     """Perform Vite operations."""
-    pass
 
 
 command = vite.command

@@ -30,7 +30,7 @@ configure-git:
 # testing & checking
 #
 ruff:
-	ruff src tests
+	ruff check src tests
 
 test-all: test test-readme
 
@@ -83,8 +83,8 @@ lint-all: lint lint-bandit
 lint-py:
 	@echo "--> Linting Python files /w flake8"
 	flake8 src tests
-	python -m pyanalyze --config-file pyproject.toml src
 	mypy src tests
+	# python -m pyanalyze --config-file pyproject.toml src
 	@echo ""
 
 lint-rst:

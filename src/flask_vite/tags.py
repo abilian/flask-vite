@@ -1,10 +1,16 @@
+# Copyright (c) 2022-2024, Abilian SAS
+#
+# SPDX-License-Identifier: MIT
+
+from __future__ import annotations
+
 import glob
 from textwrap import dedent
 
 from flask import current_app
 
 
-def make_tag(static: bool = False):
+def make_tag(*, static: bool = False):
     if static or not current_app.debug:
         return make_static_tag()
     else:

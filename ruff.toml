@@ -1,0 +1,25 @@
+preview = true
+
+lint.select = [
+    "ALL",
+]
+
+lint.extend-ignore = [
+    # Later...
+    "ANN", # flake8-annotations
+    "D", # pydocstyle
+    "EM", # flake8-errmsg
+    "PTH", # flake8-use-pathlib
+    # More specific
+    "B904",
+    "COM812", # Missing trailing comma
+    "E501", # Line too long
+    "I001", # Import block is un-sorted or un-formatted
+    "PLR6301", # Method could be a function, class method, or static method
+    "RET505",
+    "S101", # Use of `assert` detected
+    "S404", # `subprocess` call
+    "S603", # `subprocess` call
+    "SIM117",
+    "TRY003", # Avoid specifying long messages outside the exception class
+]

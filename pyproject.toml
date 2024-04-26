@@ -38,20 +38,3 @@ profile = "black"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.pyanalyze]
-paths = ["src/"]
-import_paths = ["."]
-# Additional checks
-bare_ignore = true
-incompatible_override = true
-missing_f = true
-suggested_parameter_type = true
-unused_ignore = true
-use_fstrings = true
-value_always_true = true
-# TODO: fix issues and activate
-# enforce_no_unused = true
-# missing_parameter_annotation = true
-# missing_return_annotation = true
-# suggested_return_type = true

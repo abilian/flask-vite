@@ -1,4 +1,6 @@
-#!/usr/bin/env python
+# Copyright (c) 2022-2024, Abilian SAS
+#
+# SPDX-License-Identifier: MIT
 
 """Tests for `flask_vite` package."""
 from pathlib import Path
@@ -40,8 +42,7 @@ def test_npm():
     Path("vite").mkdir(exist_ok=True)
 
     with app.app_context():
-        npm.run()
-        npm.run("--help")
+        npm.run("help")
 
 
 def test_npm_alt_path():

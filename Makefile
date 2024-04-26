@@ -108,9 +108,9 @@ lint-js:
 format: format-py format-js
 
 format-py:
-	docformatter -i -r src
 	black src tests
 	isort src tests
+	# docformatter -i -r src
 
 format-js:
 	echo "TODO"

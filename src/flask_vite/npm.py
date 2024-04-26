@@ -1,3 +1,9 @@
+# Copyright (c) 2022-2024, Abilian SAS
+#
+# SPDX-License-Identifier: MIT
+
+from __future__ import annotations
+
 import subprocess
 from dataclasses import dataclass
 from textwrap import dedent
@@ -17,8 +23,8 @@ class NPM:
 
     def run(self, *args):
         try:
-            _args = [self.npm_bin_path] + list(args)
-            subprocess.run(_args, cwd=self.cwd)
+            _args = [self.npm_bin_path, *list(args)]
+            subprocess.run(_args, cwd=self.cwd, check=True)
         except OSError as e:
             if e.filename == self.npm_bin_path:
                 msg = """

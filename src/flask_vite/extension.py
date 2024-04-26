@@ -1,8 +1,13 @@
+# Copyright (c) 2022-2024, Abilian SAS
+#
+# SPDX-License-Identifier: MIT
 """Main module."""
 
+from __future__ import annotations
+
 import os
+from http.client import OK
 from pathlib import Path
-from typing import Optional
 
 from flask import Flask, Response, send_from_directory
 
@@ -13,10 +18,10 @@ ONE_YEAR = 60 * 60 * 24 * 365
 
 
 class Vite:
-    app: Optional[Flask] = None
-    npm: Optional[NPM] = None
+    app: Flask | None = None
+    npm: NPM | None = None
 
-    def __init__(self, app: Optional[Flask] = None):
+    def __init__(self, app: Flask | None = None):
         self.app = app
 
         if app is not None:
@@ -41,7 +46,7 @@ class Vite:
         app.template_global("vite_tags")(make_tag)
 
     def after_request(self, response: Response):
-        if response.status_code != 200:
+        if response.status_code != OK:
             return response
 
         mimetype = response.mimetype or ""

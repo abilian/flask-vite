@@ -1,4 +1,9 @@
+# Copyright (c) 2022-2024, Abilian SAS
+#
+# SPDX-License-Identifier: MIT
 """Console script for flask_vite."""
+
+from __future__ import annotations
 
 import shutil
 import sys

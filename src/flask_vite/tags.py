@@ -8,13 +8,15 @@ import glob
 from textwrap import dedent
 
 from flask import current_app
+from markupsafe import Markup
 
 
 def make_tag(*, static: bool = False):
     if static or not current_app.debug:
-        return make_static_tag()
+        tag = make_static_tag()
     else:
-        return make_debug_tag()
+        tag = make_debug_tag()
+    return Markup(tag)
 
 
 def make_static_tag():

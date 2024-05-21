@@ -36,7 +36,7 @@ class Vite:
         app.extensions["vite"] = self
 
         config = app.config
-        if config.get("VITE_AUTO_INSERT", True):
+        if config.get("VITE_AUTO_INSERT", False):
             app.after_request(self.after_request)
 
         npm_bin_path = config.get("VITE_NPM_BIN_PATH", "npm")

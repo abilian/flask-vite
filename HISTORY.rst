@@ -2,13 +2,19 @@
 History
 =======
 
+0.4.0 (2024-05-21)
+------------------
+
+- Breaking: `VITE_AUTO_INSERT` now defaults to `False`.
+  This means you should now use `vite_tags()` in your template to insert the vite tags, unless you set `VITE_AUTO_INSERT` to `True` in the Flask config.
+
 
 0.3.8 (2024-03-28)
 ------------------
 
 - Bump deps.
 
- 
+
 0.3.5 (2023-10-27)
 ------------------
 
@@ -19,7 +25,7 @@ History
 ------------------
 
 - Drop support for Python 3.8
-- Doc (README) improvement by 
+- Doc (README) improvement by
 - First contributions by @neeerp and @michaelcho
 
 

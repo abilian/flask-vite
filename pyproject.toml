@@ -31,6 +31,7 @@ abilian-devtools = "^0.5.13"
 devtools = "^0.12.2"
 honcho = "^1.1.0"
 pytest = "^8"
+pytest-mock = "^3"
 
 [tool.isort]
 profile = "black"

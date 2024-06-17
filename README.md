@@ -83,9 +83,9 @@ You should now see files like `/vite/dist/assets/index-f16ca036.js`.
 - Manages a `vite` directory where you put your front-end source code.
 - Auto-injects vite-generated assets into your HTML pages (if `VITE_AUTO_INSERT` is set in the Flask config).
 - Use `{{ vite_tags() }}` in your Jinja templates otherwise.
-- If you run Flask in `host_matching` mode, you can tell Vite how to serve its assets. You can configure this when instantiating Vite or when calling `init_app`:
-  - Pass `vite_asset_host` the specific single host to serve its assets from.
-  - Pass `vite_asset_host` as the wildcard value `*` to serve vite assets from the same domain as the current request.
+- If you run Flask in `host_matching` mode, you can tell Vite which host to mount its own views on. You can configure this when instantiating Vite or when calling `init_app`:
+  - Pass `vite_routes_host` the specific single host to serve its assets from.
+  - Pass `vite_routes_host` as the wildcard value `*` to serve vite assets from the same domain as the current request.
 
 
 ## Configuration

@@ -85,22 +85,22 @@ def test_vite_and_flask_host_mismatch():
     app.config['VITE_AUTO_INSERT'] = True
 
     with pytest.raises(ValueError) as e:
-        Vite(app, vite_asset_host='vite.domain.com')
+        Vite(app, vite_routes_host='vite.domain.com')
 
-    assert str(e.value) == "`vite_asset_host` should only be set if your Flask app is using `host_matching`."
+    assert str(e.value) == "`vite_routes_host` should only be set if your Flask app is using `host_matching`."
 
 
-def test_vite_conflicting_vite_asset_host_configuration():
+def test_vite_conflicting_vite_routes_host_configuration():
     app = Flask(__name__, host_matching=True, static_host='static.domain.com')
     app.config['VITE_AUTO_INSERT'] = True
-    vite = Vite(vite_asset_host='vite.domain.com')
+    vite = Vite(vite_routes_host='vite.domain.com')
 
     with pytest.raises(ValueError) as e:
-        vite.init_app(app, vite_asset_host='*')
+        vite.init_app(app, vite_routes_host='*')
 
     assert str(e.value) == (
-        "`vite_asset_host` has been configured differently in two places; use either "
-        "`Vite(vite_asset_host=...)` or `Vite().init_app(vite_asset_host=...)`, not both."
+        "`vite_routes_host` has been configured differently in two places; use either "
+        "`Vite(vite_routes_host=...)` or `Vite().init_app(vite_routes_host=...)`, not both."
     )
 
 
@@ -109,10 +109,10 @@ def test_vite_host_variables_rejected():
     app.config['VITE_AUTO_INSERT'] = True
 
     with pytest.raises(ValueError) as e:
-        Vite(app, vite_asset_host='<my_host>.com')
+        Vite(app, vite_routes_host='<my_host>.com')
 
     assert str(e.value) == (
-        "`vite_asset_host` must either be a host name with no variables, to serve all "
+        "`vite_routes_host` must either be a host name with no variables, to serve all "
         "vite assets from a single host, or the wildcard value `*` to serve from the same host as the "
         "current request."
     )
@@ -121,7 +121,7 @@ def test_vite_host_variables_rejected():
 def test_vite_auto_inject_explicit_host(mocker):
     app = Flask(__name__, host_matching=True, static_host='static.domain.com')
     app.config['VITE_AUTO_INSERT'] = True
-    Vite(app, vite_asset_host='vite.domain.com')
+    Vite(app, vite_routes_host='vite.domain.com')
 
     @app.route('/', host="myapp.com")
     def index():
@@ -141,7 +141,7 @@ def test_vite_auto_inject_explicit_host(mocker):
 def test_vite_auto_inject_match_request_host(mocker):
     app = Flask(__name__, host_matching=True, static_host='static.domain.com')
     app.config['VITE_AUTO_INSERT'] = True
-    Vite(app, vite_asset_host='*')
+    Vite(app, vite_routes_host='*')
 
     @app.route('/', host="myapp.com")
     def index():
@@ -158,7 +158,7 @@ def test_vite_auto_inject_match_request_host(mocker):
         )
 
 
-@pytest.mark.parametrize("vite_asset_host, request_host, expected_status_code", (
+@pytest.mark.parametrize("vite_routes_host, request_host, expected_status_code", (
     ("vite.domain.com", "vite.domain.com", 200),
     ("vite.domain.com", "myapp.com", 404),
     ("vite.domain.com", "static.domain.com", 404),
@@ -166,10 +166,10 @@ def test_vite_auto_inject_match_request_host(mocker):
     ("*", "myapp.com", 200),
     ("*", "static.domain.com", 200)
 ))
-def test_vite_serves_assets_from_explicit_host(mocker, request_host, expected_status_code, vite_asset_host):
+def test_vite_serves_assets_from_explicit_host(mocker, request_host, expected_status_code, vite_routes_host):
     app = Flask(__name__, host_matching=True, static_host='static.domain.com')
     app.config['VITE_AUTO_INSERT'] = True
-    Vite(app, vite_asset_host=vite_asset_host)
+    Vite(app, vite_routes_host=vite_routes_host)
 
     with (
         app.test_client() as client,

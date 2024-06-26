@@ -121,7 +121,7 @@ Either of these options will insert &lt;script&gt; tags into your Jinja template
 ## Credits
 
 This project is inspired by the
-[Django-Tailwind](https://github.com/timonweb/django-tailwind) project.
+[Django-Tailwind](https://github.com/timonweb/django-tailwind) project and was previously known as `Flask-Tailwind`.
 
 This package was created with
 [Cookiecutter](https://github.com/audreyr/cookiecutter), using the

@@ -154,6 +154,8 @@ update-deps:
 	poetry export -o requirements.txt
 
 publish: clean
+	git-cliff > CHANGELOG.md
+	git commit -m "Update changelog" CHANGELOG.md
 	git push --tags
 	poetry build
 	twine upload dist/*

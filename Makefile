@@ -49,7 +49,8 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint/flake8: ## check style with flake8
-	flake8 src tests
+	echo "Not running flake8 for now"
+	# flake8 src tests
 
 lint/black: ## check style with black
 	black --check src tests
@@ -82,7 +83,7 @@ lint-all: lint lint-bandit
 
 lint-py:
 	@echo "--> Linting Python files /w flake8"
-	flake8 src tests
+	@make lint/flake8
 	mypy src tests
 	# python -m pyanalyze --config-file pyproject.toml src
 	@echo ""

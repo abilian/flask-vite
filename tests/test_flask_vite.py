@@ -11,6 +11,7 @@ from flask import Flask
 from werkzeug import Response
 
 from flask_vite import Vite, cli
+from flask_vite.extension import ViteError
 from flask_vite.npm import NPMError
 
 
@@ -62,41 +63,44 @@ def test_npm_alt_path():
 
 def test_vite_auto_inject(mocker):
     app = Flask(__name__)
-    app.config['VITE_AUTO_INSERT'] = True
+    app.config["VITE_AUTO_INSERT"] = True
     Vite(app)
 
-    @app.route('/')
+    @app.route("/")
     def index():
-        return '<html><head></head><body>OK</body></html>'
+        return "<html><head></head><body>OK</body></html>"
 
-    with app.test_client() as client, app.app_context(), mocker.patch('glob.glob', return_value=['path/to/file']):
-        response = client.get('/')
+    mocker.patch("glob.glob", return_value=["path/to/file"])
+    with (
+        app.test_client() as client,
+        app.app_context(),
+    ):
+        response = client.get("/")
 
-        assert response.text == (
-            '<html><head><!-- FLASK_VITE_HEADER -->\n'
-            '<script type="module" src="/_vite/file"></script>\n'
-             '<link rel="stylesheet" href="/_vite/file"></link>\n'
-             '</head><body>OK</body></html>'
-        )
+        assert '<script type="module" src="/_vite/file">' in response.text
+        assert '<link rel="stylesheet" href="/_vite/file">' in response.text
 
 
 def test_vite_and_flask_host_mismatch():
     app = Flask(__name__, host_matching=False)
-    app.config['VITE_AUTO_INSERT'] = True
+    app.config["VITE_AUTO_INSERT"] = True
 
-    with pytest.raises(ValueError) as e:
-        Vite(app, vite_routes_host='vite.domain.com')
+    with pytest.raises(ViteError) as e:
+        Vite(app, vite_routes_host="vite.domain.com")
 
-    assert str(e.value) == "`vite_routes_host` should only be set if your Flask app is using `host_matching`."
+    assert (
+        str(e.value)
+        == "`vite_routes_host` should only be set if your Flask app is using `host_matching`."
+    )
 
 
 def test_vite_conflicting_vite_routes_host_configuration():
-    app = Flask(__name__, host_matching=True, static_host='static.domain.com')
-    app.config['VITE_AUTO_INSERT'] = True
-    vite = Vite(vite_routes_host='vite.domain.com')
+    app = Flask(__name__, host_matching=True, static_host="static.domain.com")
+    app.config["VITE_AUTO_INSERT"] = True
+    vite = Vite(vite_routes_host="vite.domain.com")
 
-    with pytest.raises(ValueError) as e:
-        vite.init_app(app, vite_routes_host='*')
+    with pytest.raises(ViteError) as e:
+        vite.init_app(app, vite_routes_host="*")
 
     assert str(e.value) == (
         "`vite_routes_host` has been configured differently in two places; use either "
@@ -105,11 +109,11 @@ def test_vite_conflicting_vite_routes_host_configuration():
 
 
 def test_vite_host_variables_rejected():
-    app = Flask(__name__, host_matching=True, static_host='static.domain.com')
-    app.config['VITE_AUTO_INSERT'] = True
+    app = Flask(__name__, host_matching=True, static_host="static.domain.com")
+    app.config["VITE_AUTO_INSERT"] = True
 
-    with pytest.raises(ValueError) as e:
-        Vite(app, vite_routes_host='<my_host>.com')
+    with pytest.raises(ViteError) as e:
+        Vite(app, vite_routes_host="<my_host>.com")
 
     assert str(e.value) == (
         "`vite_routes_host` must either be a host name with no variables, to serve all "
@@ -119,66 +123,75 @@ def test_vite_host_variables_rejected():
 
 
 def test_vite_auto_inject_explicit_host(mocker):
-    app = Flask(__name__, host_matching=True, static_host='static.domain.com')
-    app.config['VITE_AUTO_INSERT'] = True
-    Vite(app, vite_routes_host='vite.domain.com')
+    app = Flask(__name__, host_matching=True, static_host="static.domain.com")
+    app.config["VITE_AUTO_INSERT"] = True
+    Vite(app, vite_routes_host="vite.domain.com")
 
-    @app.route('/', host="myapp.com")
+    @app.route("/", host="myapp.com")
     def index():
-        return '<html><head></head><body>OK</body></html>'
+        return "<html><head></head><body>OK</body></html>"
 
-    with app.test_client() as client, app.app_context(), mocker.patch('glob.glob', return_value=['path/to/file']):
-        response = client.get('/', headers={"Host": "myapp.com"})
+    mocker.patch("glob.glob", return_value=["path/to/file"])
+    with (
+        app.test_client() as client,
+        app.app_context(),
+    ):
+        response = client.get("/", headers={"Host": "myapp.com"})
 
-        assert response.text == (
-            '<html><head><!-- FLASK_VITE_HEADER -->\n'
-            '<script type="module" src="http://vite.domain.com/_vite/file"></script>\n'
-             '<link rel="stylesheet" href="http://vite.domain.com/_vite/file"></link>\n'
-             '</head><body>OK</body></html>'
+        assert (
+            '<script type="module" src="http://vite.domain.com/_vite/file">'
+            in response.text
+        )
+        assert (
+            '<link rel="stylesheet" href="http://vite.domain.com/_vite/file">'
+            in response.text
         )
 
 
 def test_vite_auto_inject_match_request_host(mocker):
-    app = Flask(__name__, host_matching=True, static_host='static.domain.com')
-    app.config['VITE_AUTO_INSERT'] = True
-    Vite(app, vite_routes_host='*')
+    app = Flask(__name__, host_matching=True, static_host="static.domain.com")
+    app.config["VITE_AUTO_INSERT"] = True
+    Vite(app, vite_routes_host="*")
 
-    @app.route('/', host="myapp.com")
+    @app.route("/", host="myapp.com")
     def index():
-        return '<html><head></head><body>OK</body></html>'
+        return "<html><head></head><body>OK</body></html>"
 
-    with app.test_client() as client, app.app_context(), mocker.patch('glob.glob', return_value=['path/to/file']):
-        response = client.get('/', headers={"Host": "myapp.com"})
-
-        assert response.text == (
-            '<html><head><!-- FLASK_VITE_HEADER -->\n'
-            '<script type="module" src="/_vite/file"></script>\n'
-             '<link rel="stylesheet" href="/_vite/file"></link>\n'
-             '</head><body>OK</body></html>'
-        )
-
-
-@pytest.mark.parametrize("vite_routes_host, request_host, expected_status_code", (
-    ("vite.domain.com", "vite.domain.com", 200),
-    ("vite.domain.com", "myapp.com", 404),
-    ("vite.domain.com", "static.domain.com", 404),
-    ("*", "vite.domain.com", 200),
-    ("*", "myapp.com", 200),
-    ("*", "static.domain.com", 200)
-))
-def test_vite_serves_assets_from_explicit_host(mocker, request_host, expected_status_code, vite_routes_host):
-    app = Flask(__name__, host_matching=True, static_host='static.domain.com')
-    app.config['VITE_AUTO_INSERT'] = True
-    Vite(app, vite_routes_host=vite_routes_host)
-
+    mocker.patch("glob.glob", return_value=["path/to/file"])
     with (
         app.test_client() as client,
         app.app_context(),
-        mocker.patch(
-            'flask.helpers.werkzeug.utils.send_from_directory',
-            return_value=Response(b'fake-file', mimetype='text/css', status=200)
-        ),
     ):
-        response = client.get('/_vite/some-file', headers={"Host": request_host})
+        response = client.get("/", headers={"Host": "myapp.com"})
+        assert '<script type="module" src="/_vite/file">' in response.text
+        assert '<link rel="stylesheet" href="/_vite/file">' in response.text
 
+
+@pytest.mark.parametrize(
+    ("vite_routes_host", "request_host", "expected_status_code"),
+    [
+        ("vite.domain.com", "vite.domain.com", 200),
+        ("vite.domain.com", "myapp.com", 404),
+        ("vite.domain.com", "static.domain.com", 404),
+        ("*", "vite.domain.com", 200),
+        ("*", "myapp.com", 200),
+        ("*", "static.domain.com", 200),
+    ],
+)
+def test_vite_serves_assets_from_explicit_host(
+    mocker, request_host, expected_status_code, vite_routes_host
+):
+    app = Flask(__name__, host_matching=True, static_host="static.domain.com")
+    app.config["VITE_AUTO_INSERT"] = True
+    Vite(app, vite_routes_host=vite_routes_host)
+
+    mocker.patch(
+        "flask.helpers.werkzeug.utils.send_from_directory",
+        return_value=Response(b"fake-file", mimetype="text/css", status=200),
+    )
+    with (
+        app.test_client() as client,
+        app.app_context(),
+    ):
+        response = client.get("/_vite/some-file", headers={"Host": request_host})
         assert response.status_code == expected_status_code

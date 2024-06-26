@@ -9,13 +9,17 @@ import os
 from http.client import OK
 from pathlib import Path
 
-from flask import Flask, Response, send_from_directory, request
+from flask import Flask, Response, request, send_from_directory
 
 from .npm import NPM
 from .tags import make_tag
 
 ONE_YEAR = 60 * 60 * 24 * 365
-VITE_ROUTES_HOST_WILDCARD_VARIABLE = '<vite_routes_host>'
+VITE_ROUTES_HOST_WILDCARD_VARIABLE = "<vite_routes_host>"
+
+
+class ViteError(ValueError):
+    pass
 
 
 class Vite:
@@ -31,9 +35,7 @@ class Vite:
 
     def init_app(self, app: Flask, vite_routes_host: str | None = None):
         if "vite" in app.extensions:
-            raise RuntimeError(
-                "This extension is already registered on this Flask app."
-            )
+            raise ViteError("This extension is already registered on this Flask app.")
 
         self._validate_and_configure_vite_routes_host(app, vite_routes_host)
 
@@ -46,12 +48,20 @@ class Vite:
         npm_bin_path = config.get("VITE_NPM_BIN_PATH", "npm")
         self.npm = NPM(cwd=str(self._get_root()), npm_bin_path=npm_bin_path)
 
-        app.route("/_vite/<path:filename>", endpoint='vite.static', host=self.vite_routes_host)(self.vite_static)
+        app.route(
+            "/_vite/<path:filename>", endpoint="vite.static", host=self.vite_routes_host
+        )(self.vite_static)
         app.template_global("vite_tags")(make_tag)
 
-    def _validate_and_configure_vite_routes_host(self, app, vite_routes_host: str | None) -> str | None:
-        if vite_routes_host and self.vite_routes_host and vite_routes_host != self.vite_routes_host:
-            raise ValueError(
+    def _validate_and_configure_vite_routes_host(
+        self, app, vite_routes_host: str | None
+    ) -> None:
+        if (
+            vite_routes_host
+            and self.vite_routes_host
+            and vite_routes_host != self.vite_routes_host
+        ):
+            raise ViteError(
                 "`vite_routes_host` has been configured differently in two places; use either "
                 "`Vite(vite_routes_host=...)` or `Vite().init_app(vite_routes_host=...)`, not both."
             )
@@ -59,13 +69,15 @@ class Vite:
         vite_routes_host = vite_routes_host or self.vite_routes_host
         if vite_routes_host:
             if not app.url_map.host_matching:
-                raise ValueError("`vite_routes_host` should only be set if your Flask app is using `host_matching`.")
+                raise ViteError(
+                    "`vite_routes_host` should only be set if your Flask app is using `host_matching`."
+                )
 
-            if vite_routes_host.strip() == '*':
+            if vite_routes_host.strip() == "*":
                 vite_routes_host = VITE_ROUTES_HOST_WILDCARD_VARIABLE
 
-            elif '<' in vite_routes_host and '>' in vite_routes_host:
-                raise ValueError(
+            elif "<" in vite_routes_host and ">" in vite_routes_host:
+                raise ViteError(
                     "`vite_routes_host` must either be a host name with no variables, to serve all "
                     "vite assets from a single host, or the wildcard value `*` to serve from the same host as the "
                     "current request."
@@ -96,7 +108,9 @@ class Vite:
         response.content_length = len(response.response[0])
         return response
 
-    def vite_static(self, filename, vite_routes_host: str | None = None):
+    def vite_static(
+        self, filename, vite_routes_host: str | None = None  # noqa: ARG002
+    ):
         dist = str(self._get_root() / "dist" / "assets")
         return send_from_directory(dist, filename, max_age=ONE_YEAR)
 

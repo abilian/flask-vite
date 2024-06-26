@@ -13,6 +13,7 @@ lint.extend-ignore = [
     # More specific
     "B904",
     "COM812", # Missing trailing comma
+    "CPY001", # Missing copyright header
     "E501", # Line too long
     "I001", # Import block is un-sorted or un-formatted
     "PLR6301", # Method could be a function, class method, or static method
@@ -20,6 +21,7 @@ lint.extend-ignore = [
     "S101", # Use of `assert` detected
     "S404", # `subprocess` call
     "S603", # `subprocess` call
+    "SIM108", # Use ternary operator
     "SIM117",
     "TRY003", # Avoid specifying long messages outside the exception class
 ]

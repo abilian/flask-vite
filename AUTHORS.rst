@@ -12,4 +12,5 @@ Contributors
 
 - @michaelcho
 - @neeerp
+- @samuelhwilliams : support for `host_matching`
 

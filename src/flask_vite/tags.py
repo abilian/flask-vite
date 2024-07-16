@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import glob
+from pathlib import Path
 from textwrap import dedent
 
 from flask import current_app, url_for
@@ -20,8 +21,8 @@ def make_tag(*, static: bool = False):
 
 
 def make_static_tag():
-    js_file = glob.glob("vite/dist/assets/*.js")[0].split("/")[-1]
-    css_file = glob.glob("vite/dist/assets/*.css")[0].split("/")[-1]
+    js_file = Path(glob.glob("vite/dist/assets/*.js")[0]).name
+    css_file = Path(glob.glob("vite/dist/assets/*.css")[0]).name
 
     js_file_url = url_for("vite.static", filename=js_file)
     css_file_url = url_for("vite.static", filename=css_file)

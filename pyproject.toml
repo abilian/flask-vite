@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flask-vite"
-version = "0.5.0"
+version = "0.5.1"
 homepage = "https://github.com/abilian/flask-vite"
 description = "Flask+Vite integration."
 authors = ["Abilian SAS <contact@abilian.com>"]

@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🐛 Bug Fixes
+
+- Windows compat.
+
+### 📚 Documentation
+
+- Update and convert contribution guidelines.
+- Update contribution guide.
+- Tweak readme
+- Add a TODO
+
+### ⚙️ Miscellaneous Tasks
+
+- Don't run CI on Windows.
+
 ## [0.5.0] - 2024-06-26
 
 ### 📚 Documentation

@@ -25,6 +25,7 @@ class ViteError(ValueError):
 class Vite:
     app: Flask | None = None
     npm: NPM | None = None
+    vite_folder_path: str = "vite"
 
     def __init__(self, app: Flask | None = None, vite_routes_host: str | None = None):
         self.app = app
@@ -47,6 +48,9 @@ class Vite:
 
         npm_bin_path = config.get("VITE_NPM_BIN_PATH", "npm")
         self.npm = NPM(cwd=str(self._get_root()), npm_bin_path=npm_bin_path)
+
+        vite_folder_path = config.get("VITE_FOLDER_PATH", "vite")
+        self.vite_folder_path = vite_folder_path
 
         app.route(
             "/_vite/<path:filename>", endpoint="vite.static", host=self.vite_routes_host
@@ -109,10 +113,12 @@ class Vite:
         return response
 
     def vite_static(
-        self, filename, vite_routes_host: str | None = None  # noqa: ARG002
+        self,
+        filename,
+        vite_routes_host: str | None = None,  # noqa: ARG002
     ):
         dist = str(self._get_root() / "dist" / "assets")
         return send_from_directory(dist, filename, max_age=ONE_YEAR)
 
     def _get_root(self) -> Path:
-        return Path(os.getcwd()) / "vite"
+        return Path(os.getcwd()) / self.vite_folder_path

@@ -43,11 +43,12 @@ class Vite:
         app.extensions["vite"] = self
 
         config = app.config
-        if config.get("VITE_AUTO_INSERT", False):
-            app.after_request(self.after_request)
 
         vite_folder_path = config.get("VITE_FOLDER_PATH", "vite")
         self.vite_folder_path = vite_folder_path
+
+        if config.get("VITE_AUTO_INSERT", False):
+            app.after_request(self.after_request)
 
         npm_bin_path = config.get("VITE_NPM_BIN_PATH", "npm")
         self.npm = NPM(cwd=str(self._get_root()), npm_bin_path=npm_bin_path)

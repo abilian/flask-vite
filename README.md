@@ -93,7 +93,7 @@ You should now see files like `/vite/dist/assets/index-f16ca036.js`.
 The following (Flask) configuration variables are available:
 
 - `VITE_AUTO_INSERT`: if set, the extension will auto-insert the Vite assets into your HTML pages.
-- `NPM_BIN_PATH`: path to the `npm` binary. Defaults to `npm`.
+- `VITE_NPM_BIN_PATH`: path to the `npm` binary. Defaults to `npm`.
 - `VITE_FOLDER_PATH`: path for the vite project. Defaults to `vite` locally.
 
 

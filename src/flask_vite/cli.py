@@ -27,8 +27,9 @@ command = vite.command
 @with_appcontext
 def init():
     """Init the vite/ directory (if it doesn't exist)"""
+    vite_folder_path = current_app.extensions["vite"].vite_folder_path
     source_dir = Path(__file__).parent / "starter"
-    dest_dir = Path("vite")
+    dest_dir = Path(vite_folder_path)
     if dest_dir.exists():
         secho(f"Target directory '{dest_dir}' exists, aborting.", fg="red")
         sys.exit(1)

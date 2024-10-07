@@ -21,11 +21,12 @@ def make_tag(*, static: bool = False):
 
 
 def make_static_tag():
-    js_file = Path(glob.glob("vite/dist/assets/*.js")[0]).name
-    css_file = Path(glob.glob("vite/dist/assets/*.css")[0]).name
+    vite_folder_path = current_app.extensions["vite"].vite_folder_path
+    js_file = Path(glob.glob(f"{vite_folder_path}/dist/assets/*.js")[0]).name
+    css_file = Path(glob.glob(f"{vite_folder_path}/dist/assets/*.css")[0]).name
 
-    js_file_url = url_for("vite.static", filename=js_file)
-    css_file_url = url_for("vite.static", filename=css_file)
+    js_file_url = url_for(f"{vite_folder_path}.static", filename=js_file)
+    css_file_url = url_for(f"{vite_folder_path}.static", filename=css_file)
 
     return dedent(
         f"""

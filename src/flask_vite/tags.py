@@ -25,8 +25,8 @@ def make_static_tag():
     js_file = Path(glob.glob(f"{vite_folder_path}/dist/assets/*.js")[0]).name
     css_file = Path(glob.glob(f"{vite_folder_path}/dist/assets/*.css")[0]).name
 
-    js_file_url = url_for(f"{vite_folder_path}.static", filename=js_file)
-    css_file_url = url_for(f"{vite_folder_path}.static", filename=css_file)
+    js_file_url = url_for("vite.static", filename=js_file)
+    css_file_url = url_for("vite.static", filename=css_file)
 
     return dedent(
         f"""

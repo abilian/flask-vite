@@ -13,6 +13,7 @@ from werkzeug import Response
 from flask_vite import Vite, cli
 from flask_vite.extension import ViteError
 from flask_vite.npm import NPMError
+from flask_vite.tags import make_static_tag
 
 
 def test_extension():
@@ -195,3 +196,25 @@ def test_vite_serves_assets_from_explicit_host(
     ):
         response = client.get("/_vite/some-file", headers={"Host": request_host})
         assert response.status_code == expected_status_code
+
+
+@pytest.mark.parametrize(
+    'vite_folder_path', (None, 'vite', 'app/vite'),
+)
+def test_vite_builds_static_tags_correctly_with_custom_folder_path(mocker,vite_folder_path):
+    app = Flask(__name__)
+
+    if vite_folder_path is not None:
+        app.config["VITE_FOLDER_PATH"] = vite_folder_path
+
+    app.config["SERVER_NAME"] = "localhost:5000"
+    Vite(app)
+
+    mocker.patch(
+        "flask_vite.tags.glob.glob", side_effect=[("index.js",), ("index.css",)]
+    )
+
+    with app.app_context():
+        static_tags = make_static_tag()
+        assert 'src="http://localhost:5000/_vite/index.js"' in static_tags
+        assert 'href="http://localhost:5000/_vite/index.css"' in static_tags

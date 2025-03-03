@@ -199,9 +199,12 @@ def test_vite_serves_assets_from_explicit_host(
 
 
 @pytest.mark.parametrize(
-    'vite_folder_path', (None, 'vite', 'app/vite'),
+    "vite_folder_path",
+    (None, "vite", "app/vite"),
 )
-def test_vite_builds_static_tags_correctly_with_custom_folder_path(mocker,vite_folder_path):
+def test_vite_builds_static_tags_correctly_with_custom_folder_path(
+    mocker, vite_folder_path
+):
     app = Flask(__name__)
 
     if vite_folder_path is not None:

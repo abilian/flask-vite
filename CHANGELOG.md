@@ -2,19 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.5.3] - 2025-02-22
-
-### <!-- 1 -->🐛 Bug Fixes
-- Fixed non-debug static asset URL generation when using VITE_FOLDER_PATH. See https://github.com/abilian/flask-vite/pull/15.
-
-## [0.5.2] - 2024-10-07
-
-### 💣 Breaking Change
-- Renamed NPM_BIN_PATH configuration variable to VITE_NPM_BIN_PATH
-
-### <!-- 0 -->🚀 Features
-- Added VITE_FOLDER_PATH configuration variable; default value of `vite`. See https://github.com/abilian/flask-vite/pull/12.
-
 ## [0.5.1] - 2024-07-16
 
 ### <!-- 1 -->🐛 Bug Fixes

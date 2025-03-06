@@ -9,6 +9,7 @@ packages:
   - software-properties-common
   - build-essential
   - make
+  - python3-dev
 
 tasks:
   - setup: |
@@ -28,7 +29,7 @@ tasks:
       cd flask-vite
       uv run tox
 
-triggers:
-  - action: email
-    condition: failure
-    to: builds@fermigier.com
+#triggers:
+#  - action: email
+#    condition: failure
+#    to: builds@fermigier.com

@@ -2,13 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
 
-## [0.6.0] - 2025-03-06
+### <!-- 3 -->📚 Documentation
 
-Switched to uv for build and dependency management.
+- Update changelog
 
-Added CI on https://builds.sr.ht/
+### Ci
 
+- Fix
+- Fix
+- Fix
 
 ## [0.5.1] - 2024-07-16
 
@@ -22,7 +26,6 @@ Added CI on https://builds.sr.ht/
 - Update contribution guide.
 - Tweak readme
 - Add a TODO
-
 
 ## [0.5.0] - 2024-06-26
 

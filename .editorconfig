@@ -19,6 +19,9 @@ indent_size = 2
 [*.html]
 indent_size = 2
 
+[*.yml]
+indent_size = 2
+
 [*.bat]
 indent_style = tab
 end_of_line = crlf

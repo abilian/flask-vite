@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 
 ## [0.6.0] - 2025-03-06
 
-Switch to uv for build and dependency management.
+Switched to uv for build and dependency management.
+
+Added CI on https://builds.sr.ht/
 
 
 ## [0.5.1] - 2024-07-16

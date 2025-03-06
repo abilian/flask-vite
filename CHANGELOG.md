@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## [0.6.0] - 2025-03-06
+
+Switch to uv for build and dependency management.
+
+
 ## [0.5.1] - 2024-07-16
 
 ### <!-- 1 -->🐛 Bug Fixes
@@ -14,6 +20,7 @@ All notable changes to this project will be documented in this file.
 - Update contribution guide.
 - Tweak readme
 - Add a TODO
+
 
 ## [0.5.0] - 2024-06-26
 

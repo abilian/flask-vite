@@ -17,7 +17,7 @@ def make_tag(*, static: bool = False):
         tag = make_static_tag()
     else:
         tag = make_debug_tag()
-    return Markup(tag)
+    return Markup(tag)  # noqa: RUF035
 
 
 def make_static_tag():

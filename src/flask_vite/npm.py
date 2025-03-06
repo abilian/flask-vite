@@ -23,8 +23,8 @@ class NPM:
 
     def run(self, *args):
         try:
-            _args = [self.npm_bin_path, *list(args)]
-            subprocess.run(_args, cwd=self.cwd, check=True)
+            popen_args = [self.npm_bin_path, *list(args)]
+            subprocess.run(popen_args, cwd=self.cwd, check=True)
         except OSError as e:
             if e.filename == self.npm_bin_path:
                 msg = """

@@ -48,15 +48,6 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint/flake8: ## check style with flake8
-	echo "Not running flake8 for now"
-	# flake8 src tests
-
-lint/black: ## check style with black
-	black --check src tests
-
-lint: lint/flake8 lint/black ## check style
-
 test-with-coverage:
 	@echo "--> Running Python tests"
 	pytest --cov $(PKG)
@@ -75,7 +66,9 @@ vagrant-tests:
 #
 # Various Checkers
 #
-lint: lint-py lint-js lint-rst lint-doc
+lint:
+	ruff check src tests
+	@make lint-py lint-js lint-rst lint-doc
 
 lint-ci: lint
 

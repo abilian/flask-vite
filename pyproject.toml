@@ -1,6 +1,6 @@
 [project]
 name = "flask-vite"
-version = "0.5.4-dev"
+version = "0.6.0"
 description = "Flask+Vite integration."
 readme = "README.md"
 classifiers = [
@@ -51,40 +51,3 @@ includes = [
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
-
-
-#[tool.poetry]
-#name = "flask-vite"
-#version = "0.5.3"
-#homepage = "https://github.com/abilian/flask-vite"
-#description = "Flask+Vite integration."
-#authors = ["Abilian SAS <contact@abilian.com>"]
-#readme = "README.md"
-#classifiers = [
-#    'Development Status :: 4 - Beta',
-#    'Intended Audience :: Developers',
-#    'Natural Language :: English',
-#    'Programming Language :: Python :: 3',
-#    'Programming Language :: Python :: 3.9',
-#    'Programming Language :: Python :: 3.10',
-#    'Programming Language :: Python :: 3.11',
-#]
-#packages = [
-#    { include = "flask_vite", from = "src" },
-#    { include = "tests", format = "sdist" },
-#]
-#
-#[tool.poetry.plugins."flask.commands"]
-#vite = "flask_vite.cli:vite"
-#
-#[tool.poetry.dependencies]
-#python = "^3.9"
-#flask = ">2"
-#
-#[tool.poetry.group.dev.dependencies]
-#abilian-devtools = "^0.5.13"
-#devtools = "^0.12.2"
-#honcho = "^1.1.0"
-#pytest = "^8"
-#pytest-mock = "^3"
-

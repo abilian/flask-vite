@@ -1,0 +1,34 @@
+# Copyright (c) 2023-2024, Abilian SAS
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+image: ubuntu/24.04
+
+packages:
+  # Build tools
+  - software-properties-common
+  - build-essential
+  - make
+
+tasks:
+  - setup: |
+      sudo pip install --break-system-packages -U uv tox
+      cd flask-vite
+      uv sync --frozen
+
+  - lint: |
+      cd flask-vite
+      uv run make lint
+
+  - test: |
+      cd flask-vite
+      uv run make test
+
+  - tox: |
+      cd flask-vite
+      uv run tox
+
+triggers:
+  - action: email
+    condition: failure
+    to: builds@fermigier.com

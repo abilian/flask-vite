@@ -12,6 +12,9 @@ packages:
   - python3-dev
   # Needed to install uv (other options are possible)
   - python3-pip
+  # We need node + npm
+  - nodejs
+  - npm
 
 tasks:
   - setup: |

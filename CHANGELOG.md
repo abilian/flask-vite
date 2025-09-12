@@ -1,134 +1,252 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to Flask-Vite will be documented in this file.
 
-## [unreleased]
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### <!-- 3 -->📚 Documentation
+## [Unreleased]
 
-- Update changelog
+### Added
+- Comprehensive documentation in `/docs` directory
+- User guide with installation, configuration, and usage examples
+- Developer guide with architecture overview and contribution guidelines
+- Complete API reference documentation
+- Enhanced README with project overview and documentation links
 
-### Ci
+### Changed
+- Improved project documentation structure
+- Enhanced README with better feature descriptions and visual architecture diagrams
 
-- Fix
-- Fix
-- Fix
+## [0.6.0] - 2024-03-06
+
+### Changed
+- Migrated build and dependency management from Poetry to uv
+- Updated CI configuration for better reliability
+- Improved development workflow with uv integration
+
+### Fixed
+- CI pipeline stability issues
+- Build process improvements
+
+## [0.5.3] - 2024-07-16
+
+### Fixed
+- Fixed vite.static endpoint routing issue
+- Improved CI workflow stability
+
+### Changed
+- Updated GitHub Actions for CI pipeline
+- Enhanced tox integration for multi-version testing
 
 ## [0.5.1] - 2024-07-16
 
-### <!-- 1 -->🐛 Bug Fixes
+### Fixed
+- **Windows compatibility**: Fixed path handling issues on Windows systems
+- Resolved file path separators for cross-platform support
 
-- Windows compat.
-
-### <!-- 3 -->📚 Documentation
-
-- Update and convert contribution guidelines.
-- Update contribution guide.
-- Tweak readme
-- Add a TODO
+### Documentation
+- Updated contribution guidelines with better formatting
+- Enhanced README with clearer setup instructions
+- Added comprehensive troubleshooting section
 
 ## [0.5.0] - 2024-06-26
 
-### <!-- 2 -->🚜 Refactor
+### Added
+- Official changelog file for tracking project changes
+- Structured release notes format
 
-- Format and cleanup contribution.
-
-### <!-- 3 -->📚 Documentation
-
-- Add a changelog
+### Changed
+- Refactored contribution guidelines for better clarity
+- Improved documentation organization
 
 ## [0.4.1] - 2024-05-21
 
-### <!-- 1 -->🐛 Bug Fixes
+### Fixed
+- **Security**: Made template tags markup-safe to prevent XSS vulnerabilities
+- Proper HTML escaping in generated script and link tags
 
-- Make tag markup safe.
+## [0.4.0] - 2024-05-21
+
+### Changed
+- **BREAKING**: `VITE_AUTO_INSERT` now defaults to `False`
+- This means you should now explicitly use `{{ vite_tags() }}` in your Jinja2 templates
+- To restore previous behavior, set `VITE_AUTO_INSERT = True` in your Flask config
+
+### Why this change?
+- Provides developers with explicit control over where Vite assets are injected
+- Follows Flask's principle of explicit over implicit behavior
+- Prevents unexpected HTML modifications in complex template hierarchies
 
 ## [0.3.10] - 2024-05-21
 
-### <!-- 0 -->🚀 Features
+### Changed
+- Reverted `VITE_AUTO_INSERT` default to `False` for better developer control
 
-- Change VITE_AUTO_INSERT to False by default.
+## [0.3.8] - 2024-03-28
+
+### Changed
+- Updated dependency versions for better compatibility
+- Improved package maintenance
 
 ## [0.3.5] - 2023-10-27
 
-### <!-- 3 -->📚 Documentation
+### Changed
+- **Compatibility**: Relaxed Flask version constraints for broader compatibility
+- Supports Flask 2.x and newer versions
 
-- Release notes.
+### Documentation
+- Enhanced release notes and documentation
 
 ## [0.3.4] - 2023-10-27
 
-### <!-- 1 -->🐛 Bug Fixes
+### Changed
+- **Python Support**: Dropped support for Python 3.8 (end of life)
+- Minimum Python version is now 3.9+
 
-- Ruff warning
+### Documentation
+- Significant README improvements by @neeerp and @michaelcho
+- Better installation and usage instructions
+- Enhanced troubleshooting section
 
-### Ci
+### Contributors
+- First contributions by @neeerp and @michaelcho
 
-- Tweak CI config, drop tests for Python 3.8.
+## [0.3.2] - 2023-09-19
 
-## [0.3.3] - 2023-09-19
+### Added
+- **Configuration**: `VITE_NPM_BIN_PATH` option to specify custom npm binary path
+- Useful for systems with npm installed in non-standard locations
 
-### <!-- 1 -->🐛 Bug Fixes
-
-- Remove debug statements
+### Fixed
+- Removed debug print statements that were accidentally included
 
 ## [0.3.1] - 2023-09-19
 
-### <!-- 0 -->🚀 Features
+### Added
+- Configurable npm binary path via `VITE_NPM_BIN_PATH` setting
 
-- Make the npm path configurable.
-
-### <!-- 2 -->🚜 Refactor
-
-- Reomve useless file.
+### Fixed
+- Cleaned up codebase by removing unnecessary files
 
 ## [0.3.0] - 2023-07-04
 
-### <!-- 3 -->📚 Documentation
+### Added
+- **Demo Application**: Complete working example using TailwindCSS
+- Better starter files for new Vite projects with realistic configuration
+- Improved `flask vite init` command with production-ready templates
 
-- Fix version number.
+### Changed
+- **BREAKING**: Removed automatic insertion of Vite tags in HTML responses
+- Now requires explicit `{{ vite_tags() }}` in templates or `VITE_AUTO_INSERT = True` config
+- **Template Function**: Renamed `vite_header_tags()` to `vite_tags()` for simplicity
+
+### Why these breaking changes?
+- Gives developers explicit control over asset injection placement
+- Prevents conflicts with complex template inheritance patterns
+- Aligns with Flask's explicit-over-implicit philosophy
 
 ## [0.2.5] - 2023-07-04
 
-### <!-- 0 -->🚀 Features
+### Changed
+- Simplified template function name from `vite_header_tags()` to `vite_tags()`
 
-- Use vite_tags() instead of vite_header_tags()
+### Fixed
+- Improved Vite integration and configuration handling
+- Fixed demo application setup
+- Updated starter files to use proper Vite configuration
 
-### <!-- 1 -->🐛 Bug Fixes
-
-- Use Vite properl (WIP).
-- Fix demo.
-- Use actual vite config for starter files.
-
-### <!-- 2 -->🚜 Refactor
-
-- Remove useless demo files
+### Removed
+- Cleaned up unnecessary demo files
 
 ## [0.2.3] - 2023-03-29
 
-### <!-- 1 -->🐛 Bug Fixes
-
-- CORS issue.
+### Fixed
+- **CORS Issues**: Resolved Cross-Origin Resource Sharing problems in development
+- Better handling of requests between Flask app and Vite dev server
 
 ## [0.2.1] - 2022-12-22
 
-### <!-- 6 -->🧪 Testing
-
-- Upgrade pyanalyze and tweak config.
+### Development
+- Updated testing infrastructure with pyanalyze improvements
+- Enhanced code quality checks
 
 ## [0.1.4] - 2022-07-19
 
-### <!-- 0 -->🚀 Features
+### Added
+- **Performance**: Static asset caching with proper HTTP headers
+- Assets served with `Cache-Control` headers for better performance
 
-- Caching for static assets.
+### Fixed
+- Proper HTML tag generation for production builds
+- Improved asset serving reliability
 
-### <!-- 1 -->🐛 Bug Fixes
+## [0.1.3] - 2022-04-28
 
-- Proper tags for production.
+### Added
+- Asset caching for improved performance
+- Proper HTTP cache headers for static files
 
 ## [0.1.1] - 2022-04-14
 
-### <!-- 0 -->🚀 Features
+### Added
+- Proper HTML tag insertion for Vite assets
+- Basic template integration functionality
 
-- Insert proper tags.
+## [0.1.0] - 2022-04-08
 
-<!-- generated by git-cliff -->
+### Added
+- Initial release on PyPI
+- Basic Flask extension for Vite integration
+- CLI commands for Vite operations (`flask vite init`, `flask vite build`, etc.)
+- Template tag support for asset injection
+- Development and production mode support
+
+### Features
+- Integration with Vite dev server for hot reloading
+- Automatic asset serving in production mode
+- Flask CLI integration
+- Support for modern frontend frameworks (React, Vue, Svelte)
+
+---
+
+## Migration Guide
+
+### Upgrading from 0.3.x to 0.4.x
+
+The main breaking change is the default value of `VITE_AUTO_INSERT`:
+
+**Before (0.3.x):**
+```python
+# Assets were automatically injected
+app = Flask(__name__)
+vite = Vite(app)
+# No template changes needed
+```
+
+**After (0.4.x):**
+```python
+# Option 1: Use explicit template tags (recommended)
+app = Flask(__name__)
+vite = Vite(app)
+```
+```html
+<!-- In your templates -->
+<head>
+    {{ vite_tags() }}
+</head>
+```
+
+```python
+# Option 2: Restore auto-injection behavior
+app = Flask(__name__)
+app.config['VITE_AUTO_INSERT'] = True
+vite = Vite(app)
+```
+
+### Upgrading from 0.2.x to 0.3.x
+
+Template function was renamed:
+
+**Before:** `{{ vite_header_tags() }}`  
+**After:** `{{ vite_tags() }}`

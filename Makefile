@@ -14,8 +14,7 @@ develop: install-deps activate-pre-commit configure-git
 
 install-deps:
 	@echo "--> Installing dependencies"
-	pip install -U pip setuptools wheel
-	poetry install
+	uv sync
 
 activate-pre-commit:
 	@echo "--> Activating pre-commit hook"
@@ -114,7 +113,7 @@ format-js:
 # Everything else
 #
 install:
-	poetry install
+	uv sync
 
 doc: doc-html doc-pdf
 
@@ -143,12 +142,10 @@ update-pot:
 
 update-deps:
 	pip install -U pip setuptools wheel
-	poetry update
-	poetry export -o requirements.txt
+	uv sync -U
 
 publish: clean
-	git-cliff > CHANGELOG.md
-	-git commit -m "Update changelog" CHANGELOG.md
+	git push
 	git push --tags
-	poetry build
+	uv build
 	twine upload dist/*

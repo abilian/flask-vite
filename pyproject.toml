@@ -1,6 +1,6 @@
 [project]
 name = "flask-vite"
-version = "0.6.0"
+version = "0.6.1"
 description = "Flask+Vite integration."
 readme = "README.md"
 classifiers = [

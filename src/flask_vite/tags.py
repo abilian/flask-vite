@@ -32,7 +32,7 @@ def make_static_tag():
         f"""
             <!-- FLASK_VITE_HEADER -->
             <script type="module" src="{js_file_url}"></script>
-            <link rel="stylesheet" href="{css_file_url}"></link>
+            <link rel="stylesheet" href="{css_file_url}" />
         """
     ).strip()
 
